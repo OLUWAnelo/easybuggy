@@ -9,7 +9,8 @@ stages{
             withDockerRegistry(
                 [credentialsId:'dockertech',url:""]
                 
-            ){
+            )
+            script{
                 app = docker.build("neloeasybuggy")
         }
     }
@@ -18,7 +19,7 @@ stages{
 stage('Push'){
     steps{
         script{
-            docker.withdockerregistry("https://457274511381.dkr.ecr.us-east-1.amazonaws.com", "ecr.us-east-1.amazonaws.com/neloeasybuggy")
+            docker.withregistry("https://457274511381.dkr.ecr.us-east-1.amazonaws.com", "ecr.us-east-1:aws_credentials")
         {
             app.push("latest")
         }
